@@ -1,0 +1,49 @@
+{
+  "name": "ZenLife - Seu Aplicativo de Bem-estar",
+  "short_name": "ZenLife",
+  "description": "Uma vida saudável - seu aplicativo de produtividade e bem-estar",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020817",
+  "theme_color": "#020817",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "lifestyle", "health"],
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Lista de Compras",
+      "short_name": "Compras",
+      "description": "Abrir sua lista de compras",
+      "url": "/shopping-list",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Planejador de Refeições",
+      "short_name": "Refeições",
+      "description": "Abrir seu planejador de refeições",
+      "url": "/meal-planner",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "prefer_related_applications": false
+} 

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Criar Ícones ZenLife</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      margin: 10px 0;
+    }
+    .buttons {
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 15px;
+      margin-right: 10px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gerador de Ícones ZenLife</h1>
+  <p>Esta página gera ícones para o PWA ZenLife. Clique nos botões abaixo para baixar os ícones.</p>
+  
+  <div>
+    <h2>Ícone 192x192</h2>
+    <canvas id="canvas192" width="192" height="192"></canvas>
+    <div class="buttons">
+      <button onclick="downloadIcon(192)">Baixar Ícone 192x192</button>
+    </div>
+    
+    <h2>Ícone 512x512</h2>
+    <canvas id="canvas512" width="512" height="512"></canvas>
+    <div class="buttons">
+      <button onclick="downloadIcon(512)">Baixar Ícone 512x512</button>
+    </div>
+  </div>
+  
+  <script>
+    // Função para criar ícones
+    function createIcon(size) {
+      const canvas = document.getElementById(`canvas${size}`);
+      const ctx = canvas.getContext('2d');
+      
+      // Fundo
+      const gradient = ctx.createLinearGradient(0, 0, size, size);
+      gradient.addColorStop(0, '#020817');
+      gradient.addColorStop(1, '#1e293b');
+      
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, size, size);
+      
+      // Círculo de fundo
+      ctx.beginPath();
+      ctx.arc(size/2, size/2, size*0.4, 0, Math.PI * 2);
+      ctx.fillStyle = '#4f46e5';
+      ctx.fill();
+      
+      // Texto
+      ctx.fillStyle = 'white';
+      ctx.font = `bold ${size*0.3}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('ZL', size/2, size/2);
+      
+      return canvas;
+    }
+    
+    // Função para baixar ícones
+    function downloadIcon(size) {
+      const canvas = createIcon(size);
+      const link = document.createElement('a');
+      link.download = `icon-${size}x${size}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+    
+    // Criar ícones quando a página carregar
+    window.onload = function() {
+      createIcon(192);
+      createIcon(512);
+    };
+  </script>
+</body>
+</html> 

@@ -69,29 +69,33 @@ export default function Sidebar() {
 
   // Get counts of active items - Update whenever location changes
   useEffect(() => {
-    const updateCounts = () => {
-      // Get active goals (not archived or completed)
-      const activeGoals = getGoals().filter(goal => !goal.archived && goal.progress < 100);
-      
-      // Get active habits (not archived)
-      const activeHabits = getHabits().filter(habit => !habit.archived);
-      
-      // Get active tasks (not completed)
-      const activeTasks = getTasks().filter(task => !task.completed);
-      
-      // Get all ideas
-      const allIdeas = getIdeas();
-      
-      // Get gratitude entries that are not archived
-      const activeGratitude = getGratitudeEntries().filter(entry => !entry.archived);
-      
-      setCounts({
-        goals: activeGoals.length,
-        habits: activeHabits.length,
-        tasks: activeTasks.length,
-        ideas: allIdeas.length,
-        gratitude: activeGratitude.length
-      });
+    const updateCounts = async () => {
+      try {
+        // Get active goals (not archived or completed)
+        const activeGoals = getGoals().filter(goal => !goal.archived && goal.progress < 100);
+        
+        // Get active habits (not archived)
+        const activeHabits = getHabits().filter(habit => !habit.archived);
+        
+        // Get active tasks (not completed)
+        const activeTasks = getTasks().filter(task => !task.completed);
+        
+        // Get all ideas - a função é assíncrona agora
+        const allIdeas = await getIdeas();
+        
+        // Get gratitude entries that are not archived
+        const activeGratitude = getGratitudeEntries().filter(entry => !entry.archived);
+        
+        setCounts({
+          goals: activeGoals.length,
+          habits: activeHabits.length,
+          tasks: activeTasks.length,
+          ideas: allIdeas.length,
+          gratitude: activeGratitude.length
+        });
+      } catch (error) {
+        console.error('Erro ao atualizar contagens:', error);
+      }
     };
 
     // Initial count update
@@ -160,9 +164,9 @@ export default function Sidebar() {
           </div>
           {!collapsed && userFirstName && (
             <div className="flex flex-col items-center gap-2 mt-3">
-              <Avatar className="h-20 w-20 border-2 border-primary/20">
+              <Avatar className="h-20 w-20 border-2 border-primary/20 relative overflow-hidden">
                 {userPhotoUrl ? (
-                  <AvatarImage src={userPhotoUrl} alt="Perfil" />
+                  <AvatarImage src={userPhotoUrl} alt="Perfil" className="object-cover object-center" />
                 ) : (
                   <AvatarFallback>
                     {userFirstName ? userFirstName[0].toUpperCase() : <User className="h-9 w-9" />}
